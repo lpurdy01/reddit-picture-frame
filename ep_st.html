@@ -38,7 +38,7 @@
         var body = document.getElementsByTagName('body')[0];
         function refresh_page(){
             $.ajax({
-                url: '/home/pi/earthporn_showerthoughts/data.json',
+                url: '/home/pi/repos/reddit-picture-frame/data.json',
                 dataType: 'json'
             }).done(function (data) {
                 text.textContent = data['text'];
