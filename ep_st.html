@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--meta http-equiv="refresh" content="60"-->
+    <meta charset="UTF-8">
+    <!--meta http-equiv="Cache-Control" content="max-age=20, must-revalidate"-->
+    <style>
+        body {
+            padding: 0px;
+        }
+
+        #shadow {
+            position: absolute;
+            left: 5%; right: 5%;
+            background: rgba(0, 0, 0, 0.6);
+            bottom: 5%;
+        }
+
+        #text {
+            position: relative;
+        }
+
+        p {
+            text-align: center;
+            color: #FFF;
+            font-weight: bold;
+            font-size: 125%;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="shadow">
+        <p id="text">text</p>
+    </div>
+    <script type="text/javascript">
+        var text = document.getElementById('text');
+        var body = document.getElementsByTagName('body')[0];
+        function refresh_page(){
+            $.ajax({
+                url: '/home/pi/earthporn_showerthoughts/data.json',
+                dataType: 'json'
+            }).done(function (data) {
+                text.textContent = data['text'];
+                body.style.background = 'url(' + data['img'] + ') no-repeat center center fixed';
+                body.style.backgroundColor = '#000'
+                body.style.backgroundSize = 'contain';
+                body.style.webkitBackgroundSize = 'contain';
+            }).fail(function () {
+                //alert("GET call to server failed!");
+            });
+        }
+        refresh_page();
+        window.setInterval(refresh_page, 5);
+    </script>
+</body>
+</html>
